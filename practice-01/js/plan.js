@@ -1,12 +1,14 @@
-const days = 5;
-const tasksPerDay = 3;
+const totalTasks = 20;
+const dailyLimit = 6;
 
-console.log("План задач на неделю:");
+let remainingTasks = totalTasks;
+let day = 1;
 
-for (let day = 1; day <= days; day++) {
-    console.log("День", day + ":");
+while (remainingTasks > 0) {
+  const tasksToday = Math.min(remainingTasks, dailyLimit);
 
-    for (let task = 1; task <= tasksPerDay; task++) {
-        console.log("  Задача", task);
-    }
+  console.log(`День ${day}: выполнить ${tasksToday} задач`);
+
+  remainingTasks -= tasksToday;
+  day++;
 }
