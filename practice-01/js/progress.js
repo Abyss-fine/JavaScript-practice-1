@@ -1,11 +1,45 @@
 const completedTasks = 11;
 const totalTasks = 20;
 
-if (totalTasks <= 0) {
-  console.log("Общее количество задач должно быть больше нуля.");
-} else if (completedTasks < 0 || completedTasks > totalTasks) {
-  console.log("Количество выполненных задач указано неверно.");
+if (
+  typeof totalTasks !== "number" ||
+  typeof completedTasks !== "number" ||
+  !Number.isFinite(totalTasks) ||
+  !Number.isFinite(completedTasks)
+) {
+  console.log("Ошибка: недопустимое числовое значение.");
+} else if (
+  !Number.isInteger(totalTasks) ||
+  !Number.isInteger(completedTasks)
+) {
+  console.log("Ошибка: дробное количество.");
+} else if (totalTasks < 0 || completedTasks < 0) {
+  console.log("Ошибка: отрицательное количество.");
+} else if (totalTasks > 1000 || completedTasks > 1000) {
+  console.log("Ошибка: превышена верхняя граница.");
+} else if (totalTasks === 0) {
+  if (completedTasks === 0) {
+    console.log("Задач пока нет.");
+  } else {
+    console.log("Ошибка: выполнено больше, чем существует.");
+  }
+} else if (completedTasks > totalTasks) {
+  console.log("Ошибка: выполнено больше, чем существует.");
 } else {
+  const remainingTasks = totalTasks - completedTasks;
   const progress = (completedTasks / totalTasks) * 100;
-  console.log(`Прогресс выполнения: ${progress.toFixed(0)}%`);
+
+  let status;
+
+  if (completedTasks === 0) {
+    status = "Не начато";
+  } else if (completedTasks === totalTasks) {
+    status = "Завершено";
+  } else {
+    status = "В работе";
+  }
+
+  console.log(`Осталось: ${remainingTasks}`);
+  console.log(`Прогресс: ${progress.toFixed(1)}%`);
+  console.log(`Статус: ${status}`);
 }
